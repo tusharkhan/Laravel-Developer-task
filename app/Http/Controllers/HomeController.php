@@ -25,7 +25,7 @@ class HomeController extends Controller
 
         $this->generateUniqueShortUrl($insertData);
 
-        $data = ShortUrl::create($insertData);
+        ShortUrl::create($insertData);
 
         return redirect()->route('home');
     }
