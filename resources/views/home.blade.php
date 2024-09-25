@@ -1,9 +1,9 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container">
+    <div class="container-fluid">
         <div class="row justify-content-center">
-            <div class="col-md-8 col-lg-8 mb-5">
+            <div class="col-md-5 col-lg-5 mb-5">
                 <div class="card">
                     <div class="card-header">{{ __('Make your URL short') }}</div>
 
@@ -31,7 +31,7 @@
                 </div>
             </div>
 
-            <div class="col-md-12 col-lg-12">
+            <div class="col-md-7 col-lg-7">
                 <table class="table table-bordered">
                     <thead class="thead-light ">
                         <tr>
@@ -47,9 +47,9 @@
                                     <a href="{{ $url->original_url }}" target="_blank">{{ $url->original_url }}</a>
                                 </td>
                                 <td>
-                                    <a href="{{ $url->short_url  }}" target="_blank">{{ $url->short_url  }}</a>
+                                    <a onclick="count('{{ $url->url_code }}')" href="{{ $url->short_url  }}" target="_blank">{{ $url->short_url  }}</a>
                                 </td>
-                                <td>{{ $url->click_count }} time(s)</td>
+                                <td id="{{ $url->url_code }}">{{ $url->click_count }} time(s)</td>
                             </tr>
                         @endforeach
                     </tbody>
@@ -60,3 +60,15 @@
         </div>
     </div>
 @endsection
+
+@push('scropts')
+<script>
+    function count(id){
+        let count = document.getElementById(id);
+        let text = count.innerText;
+        let number = parseInt(text.match(/\d+/)[0], 10);
+        
+        count.innerText = (++number) + " time(s)";
+    }
+</script>
+@endpush
